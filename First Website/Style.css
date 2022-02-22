@@ -1,0 +1,86 @@
+ul>a>li{
+    list-style: none;
+}
+
+.navbar>nav{
+    display: flex;
+    justify-content: space-between;
+}
+
+.navbar>nav>h1{
+    margin-left: 1.5rem;
+}
+
+ul>li>h1{
+    margin-top: -0.15rem;
+}
+
+ul{
+    display: flex;
+}
+
+li{
+    margin-right: 1.2rem;
+}
+
+.skills{
+    display: flex;
+    margin-top: 1rem;
+}
+
+.skills>div{
+    text-align: center;
+}
+
+.images>img{
+    height: 100vh;
+    width: 95vw;
+    margin-left: 2vw;
+    margin-right: 2vw;
+}
+
+.footer{
+    height: 80px;
+    background-color: black;
+    color: white;
+    text-align: center;
+}
+
+.footer>p{
+    font-size: 25px;
+}
+
+.vw{
+    font-size: 5vw;
+}
+
+.parent{
+    font-size: 3px;
+}
+
+.em{
+    font-size: 10em;
+}
+
+html{
+    font-size: 20px;
+}
+
+.rem{
+    font-size: 10rem;
+}
+
+.box{
+    background-color: teal;
+    margin: 10px;
+    width: 1000px;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
+a:hover{
+    color: green;
+}
