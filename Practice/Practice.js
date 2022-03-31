@@ -59,12 +59,29 @@
 // }
 // console.log(abc);
 
-function outer(){
-    inner();
-    function inner(){
-        console.log(b);
+// function outer(){
+//     inner();
+//     function inner(){
+//         console.log(b);
+//     }
+// }
+// var b = 10;
+// outer();
+// console.log(b);
+
+let ob1 = {
+    
+}
+
+var ob2 = {
+    add:function add(a,b){
+        return a + b;
     }
 }
-var b = 10;
-outer();
-console.log(b);
+// console.log(ob1);
+// console.log(ob2);
+
+// ob1 = ob2;
+// console.log(ob1);
+
+module.exports = ob2;
