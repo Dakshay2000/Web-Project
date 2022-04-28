@@ -89,4 +89,69 @@ for (let i = 0; i < contentArr.length; i++)
     }
 }
 
-console.table(tempArr);
+console.table(tempArr); // Extra lines removed
+contentArr = tempArr;
+
+let indexOfN = optionsArr.indexOf("-n"); //Gives the index of "-n" from optionsArr
+let indexOfB = optionsArr.indexOf("-b"); //Gives the index of "-b" from optionsArr
+
+let finalOption = "";
+
+if (indexOfN != -1 && indexOfB != -1) //If both "-n" & "-b" are present at the same time
+{
+    if (indexOfN < indexOfB) //If the index of "-n" is lower than "-b" then "-n" will work
+    {
+        finalOption = "-n"
+    }
+    else
+    {
+        finalOption = "-b"; //If the index of "-b" is lower than "-n" then "-b" will work
+    }
+}
+
+else
+{
+    if (indexOfN != -1) //If only "-n" present
+    {
+        finalOption = "-n";
+    }
+    else if (indexOfB != -1) //If only "-b" present
+    {
+        finalOption = "-b";
+    }
+}
+
+
+if (finalOption == "-n")
+{
+    modifyContentByN(); //For "-n" calling the function for the final output
+}
+
+else if(finalOption == "-b")
+{
+    modifyContentByB(); //For "-b" calling the function for the final output
+}
+
+
+function modifyContentByN() //Creating function for "-n"
+{
+    for (let i = 0; i < contentArr.length; i++) 
+    {
+        contentArr[i] = (i + 1) + ") " + contentArr[i];
+    }
+}
+
+function modifyContentByB() //Creating function for "-b"
+{
+    let count = 1;
+    for (let i = 0; i < contentArr.length; i++) 
+    {
+        if (contentArr[i] != "") 
+        {
+            contentArr[i] = (count) + ") " + contentArr[i]   
+            count++;
+        }
+    }
+}
+
+console.log(contentArr);
