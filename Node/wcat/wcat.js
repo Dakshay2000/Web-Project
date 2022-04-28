@@ -37,6 +37,8 @@ for (let i = 0; i < filesArr.length; i++)
     {
         console.log(filesArr[i] + " File does not exists.");
         return;
+                            ///////OR////////
+        //process.exit(); //Another way of ending a program
     }
 }
 
