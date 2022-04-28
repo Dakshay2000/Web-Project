@@ -44,7 +44,7 @@ let content = "";
 for (let i = 0; i < filesArr.length; i++) 
 {
     let fileContent = fs.readFileSync(filesArr[i]);
-    content += fileContent + "\n";
+    content += fileContent + "\r\n";
 }
 
 console.log(content);
@@ -55,3 +55,38 @@ var str = "Hello my name is dakshay.";
 console.log(str);
 var a = str.split(" "); //Split helps in dividing the string on the basis of argument and puts them in an array.
 console.log(a);
+
+
+let contentArr = content.split("\r\n");
+console.table(contentArr);
+
+//'-s' for removing extra lines 
+let isPresent = optionsArr.includes("-s"); //"includes" it checks '-s' is available or not in array
+if (isPresent) //Is '-s' is available then this condition will work
+{
+    for (let i = 1; i < contentArr.length; i++) 
+    {
+        if (contentArr[i] == "" && contentArr[i - 1] == "") 
+        {
+            contentArr[i] = null; //Null helps in removing the line
+        }
+
+        else if (contentArr[i] == "" && contentArr[i - 1] == null) 
+        {
+            contentArr[i] = null;
+        }
+    }
+}
+
+console.table(contentArr);
+
+let tempArr = [];
+for (let i = 0; i < contentArr.length; i++) 
+{
+    if (contentArr[i] != null) 
+    {
+        tempArr.push(contentArr[i]);
+    }
+}
+
+console.table(tempArr);
