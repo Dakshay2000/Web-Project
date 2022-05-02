@@ -156,4 +156,4 @@ function modifyContentByB() //Creating function for "-b"
     }
 }
 
-console.log(contentArr);
+console.table(contentArr);
