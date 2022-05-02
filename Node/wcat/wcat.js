@@ -28,8 +28,39 @@ for (let i = 0; i < inputArr.length; i++)
     }
 }
 
-// console.log("files to be read are " + filesArr);
+//Creating file from "-cr" command
+let crisPresent = optionsArr.includes("-cr");
+if (crisPresent) 
+{
+    fs.appendFileSync(filesArr[0],"");
+    return;
+}
 
+//Copying data from old file to new file with "-con"(Copy Old New)
+//Older File > Newer File
+let conisPresent = optionsArr.includes("-con");
+if (conisPresent) 
+{
+    fs.appendFileSync(filesArr[1],fs.readFileSync(filesArr[0]));
+    return;
+}
+
+//Concatenating Data of all the files into new file with "-don"(Data Old New)
+//Old Files > New File
+let donisPresent = optionsArr.includes("-don");
+if (donisPresent) 
+{
+    let content = "";
+    for (let i = 0; i < filesArr.length - 1; i++) 
+    {
+        let fileContent = fs.readFileSync(filesArr[i]);
+        content += fileContent + "\r\n";
+    }
+    fs.appendFileSync(filesArr[filesArr.length - 1],content);
+    return;
+}
+
+//Checking if file exists or not
 for (let i = 0; i < filesArr.length; i++) 
 {
     let doesExist = fs.existsSync(filesArr[i]);
@@ -49,18 +80,18 @@ for (let i = 0; i < filesArr.length; i++)
     content += fileContent + "\r\n";
 }
 
-console.log(content);
+// console.log(content);
 
 
 //"Split" in string
-var str = "Hello my name is dakshay.";
-console.log(str);
-var a = str.split(" "); //Split helps in dividing the string on the basis of argument and puts them in an array.
-console.log(a);
+// var str = "Hello my name is dakshay.";
+// console.log(str);
+// var a = str.split(" "); //Split helps in dividing the string on the basis of argument and puts them in an array.
+// console.log(a);
 
 
 let contentArr = content.split("\r\n");
-console.table(contentArr);
+// console.table(contentArr);
 
 //'-s' for removing extra lines 
 let isPresent = optionsArr.includes("-s"); //"includes" it checks '-s' is available or not in array
@@ -91,7 +122,7 @@ for (let i = 0; i < contentArr.length; i++)
     }
 }
 
-console.table(tempArr); // Extra lines removed
+// console.table(tempArr); // Extra lines removed
 contentArr = tempArr;
 
 let indexOfN = optionsArr.indexOf("-n"); //Gives the index of "-n" from optionsArr
