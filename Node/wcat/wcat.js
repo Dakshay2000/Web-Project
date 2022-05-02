@@ -1,12 +1,27 @@
-// 1. node wcat.js filepath => Displays the contents of a file in a terminal
-
+// 1. node wcat.js filepath => Displays the contents of a file in a terminal.
 
 //2. node wcat.js filepath1 filepath2 filepath3 => Displays the content of all
 //   files in terminal in concatinated form in given order
 //   node wcat.js f1.txt
 //   node wcat.js f1.txt f2.txt f3.txt
 
-//3. node wcat.js -n file1 file2 file3 OR -n file1
+//3. node wcat.js "-n" {FileName} => Give numbering to all the lines.
+
+//4. node wcat.js "-b" {FileName} => Give numbering to non-empty lines.
+
+//5. node wcat.js "-cr" {FileName} => Creates a file with a given file name.
+
+//6. node wcat.js "-s" => Convert big line breaks into a singular line break.
+
+//7. node wcat.js "-con" {oldFileName} {newFileName} => It copies data from given old file and creates a new file and it will paste it there.
+
+//8. node wcat.js "-don" {oldFileNames} {newFileName} => It copies data from all the given old files and creates a new file and it will paste it there.
+
+//9. node wcat.js "-ad" {FileName} => It adds "$" to every line(only non-empty lines).
+
+//10. node wcat.js "-tac" {FileNames}  => It prints content of file in reverse order(like printing lines from bottom to top).
+
+
 
 const fs = require("fs");
 
@@ -36,43 +51,6 @@ if (crisPresent)
     return;
 }
 
-//Copying data from old file to new file with "-con"(Copy Old New)
-//Older File > Newer File
-let conisPresent = optionsArr.includes("-con");
-if (conisPresent) 
-{
-    fs.appendFileSync(filesArr[1],fs.readFileSync(filesArr[0]));
-    return;
-}
-
-//Concatenating Data of all the files into new file with "-don"(Data Old New)
-//Old Files > New File
-let donisPresent = optionsArr.includes("-don");
-if (donisPresent) 
-{
-    let content = "";
-    for (let i = 0; i < filesArr.length - 1; i++) 
-    {
-        let fileContent = fs.readFileSync(filesArr[i]);
-        content += fileContent + "\r\n";
-    }
-    fs.appendFileSync(filesArr[filesArr.length - 1],content);
-    return;
-}
-
-//Checking if file exists or not
-for (let i = 0; i < filesArr.length; i++) 
-{
-    let doesExist = fs.existsSync(filesArr[i]);
-    if(!doesExist)
-    {
-        console.log(filesArr[i] + " File does not exists.");
-        return;
-                            ///////OR////////
-        //process.exit(); //Another way of ending a program
-    }
-}
-
 let content = "";
 for (let i = 0; i < filesArr.length; i++) 
 {
@@ -80,18 +58,7 @@ for (let i = 0; i < filesArr.length; i++)
     content += fileContent + "\r\n";
 }
 
-// console.log(content);
-
-
-//"Split" in string
-// var str = "Hello my name is dakshay.";
-// console.log(str);
-// var a = str.split(" "); //Split helps in dividing the string on the basis of argument and puts them in an array.
-// console.log(a);
-
-
 let contentArr = content.split("\r\n");
-// console.table(contentArr);
 
 //'-s' for removing extra lines 
 let isPresent = optionsArr.includes("-s"); //"includes" it checks '-s' is available or not in array
@@ -111,8 +78,6 @@ if (isPresent) //Is '-s' is available then this condition will work
     }
 }
 
-console.table(contentArr);
-
 let tempArr = [];
 for (let i = 0; i < contentArr.length; i++) 
 {
@@ -122,8 +87,94 @@ for (let i = 0; i < contentArr.length; i++)
     }
 }
 
-// console.table(tempArr); // Extra lines removed
 contentArr = tempArr;
+
+//Copying data from old file to new file with "-con"(Copy Old New)
+//Older File > Newer File
+let conisPresent = optionsArr.includes("-con");
+if (conisPresent) 
+{
+    fs.appendFileSync(filesArr[1],fs.readFileSync(filesArr[0]));
+    return;
+}
+
+//Concatenating Data of all the files into new file with "-don"(Data Old New)
+//Old Files > New File
+let donisPresent = optionsArr.includes("-don");
+if (donisPresent) 
+{
+    let content = "";
+    for (let i = 0; i < filesArr.length - 1; i++) 
+    {
+        let fileContent = fs.readFileSync(filesArr[i]);
+        content += fileContent + `\r\n - ${filesArr[i]} completed \r\n\r\n`;
+    }
+    fs.appendFileSync(filesArr[filesArr.length - 1],content);
+    return;
+}
+
+//Adding "$" at the end every line with "-ad" command(Add dollar)
+let adisPresent = optionsArr.includes("-ad");
+if (adisPresent) 
+{
+    let content = "";
+    for (let i = 0; i < filesArr.length; i++) 
+    {
+        let fileContent = fs.readFileSync(filesArr[i]);
+        content += fileContent + "\r\n";
+    }
+
+    let contentArr = content.split("\r\n");
+    for (let i = 0; i < contentArr.length - 1; i++) 
+    {
+        if (contentArr[i] != "") 
+        {
+            contentArr[i] = contentArr[i] + "  $";
+        }
+    }
+    console.log(contentArr);
+    return;
+}
+
+//Print data of file in reverse order with "-tac" command
+let tacisPresent = optionsArr.includes("-tac");
+if (tacisPresent) 
+{
+    let content = "";
+    for (let i = 0; i < filesArr.length; i++) 
+    {
+        let fileContent = fs.readFileSync(filesArr[i]);
+        content += fileContent + "\r\n";
+    }
+
+    let contentArr = content.split("\r\n");
+    for (let i = contentArr.length - 1; i >= 0; i--) 
+    {
+        console.log(contentArr[i]);
+    }
+    return;
+}
+
+//Checking if file exists or not
+for (let i = 0; i < filesArr.length; i++) 
+{
+    let doesExist = fs.existsSync(filesArr[i]);
+    if(!doesExist)
+    {
+        console.log(filesArr[i] + " File does not exists.");
+        return;
+                            ///////OR////////
+        //process.exit(); //Another way of ending a program
+    }
+}
+
+
+//"Split" in string
+// var str = "Hello my name is dakshay.";
+// console.log(str);
+// var a = str.split(" "); //Split helps in dividing the string on the basis of argument and puts them in an array.
+// console.log(a);
+
 
 let indexOfN = optionsArr.indexOf("-n"); //Gives the index of "-n" from optionsArr
 let indexOfB = optionsArr.indexOf("-b"); //Gives the index of "-b" from optionsArr

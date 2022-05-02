@@ -7,4 +7,3 @@ are
 
 
 you
-https://www.javatpoint.com/linux-cat
