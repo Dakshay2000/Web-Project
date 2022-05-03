@@ -23,6 +23,7 @@
 
 //11. node wcat.js "-re" {oldFileName} {newFileName} => For renaming a file.
 
+//12. node wcat.js "-del" {FileName} => For deleting a file.
 
 const fs = require("fs");
 
@@ -118,12 +119,19 @@ if (tacisPresent)
     return;
 }
 
-//Renaming the existing file
+//Renaming the existing file with "-re" command
 let reisPresent = optionsArr.includes("-re");
 if (reisPresent) 
 {
     fs.renameSync(filesArr[0],filesArr[1]);
     return;    
+}
+
+//Deleting a file with "-del" command
+let delisPresent = optionsArr.includes("-del");
+if (delisPresent) 
+{
+    fs.unlinkSync(filesArr[0]);
 }
 
 //Checking if file exists or not

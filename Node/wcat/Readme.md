@@ -22,6 +22,7 @@ Commands:
 <br>9- node wcat.js -ad {filepath} => It adds "$" to every line(only non-empty lines).
 <br>10- node wcat.js -tac {filepaths}  => It prints content of file in reverse order(like printing lines from bottom to top).
 <br>11- node wcat.js -re {oldFilePath} {newFilePath} => For renaming a file.
+<br>12. node wcat.js -del {filepath} => For deleting a file.
 <br>We can mix and match the options(-s,-n,-b).
 
 Edge cases:
