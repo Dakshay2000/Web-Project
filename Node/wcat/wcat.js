@@ -21,6 +21,7 @@
 
 //10. node wcat.js "-tac" {FileNames}  => It prints content of file in reverse order(like printing lines from bottom to top).
 
+//11. node wcat.js "-re" {oldFileName} {newFileName} => For renaming a file.
 
 
 const fs = require("fs");
@@ -50,44 +51,6 @@ if (crisPresent)
     fs.appendFileSync(filesArr[0],"");
     return;
 }
-
-let content = "";
-for (let i = 0; i < filesArr.length; i++) 
-{
-    let fileContent = fs.readFileSync(filesArr[i]);
-    content += fileContent + "\r\n";
-}
-
-let contentArr = content.split("\r\n");
-
-//'-s' for removing extra lines 
-let isPresent = optionsArr.includes("-s"); //"includes" it checks '-s' is available or not in array
-if (isPresent) //Is '-s' is available then this condition will work
-{
-    for (let i = 1; i < contentArr.length; i++) 
-    {
-        if (contentArr[i] == "" && contentArr[i - 1] == "") 
-        {
-            contentArr[i] = null; //Null helps in removing the line
-        }
-
-        else if (contentArr[i] == "" && contentArr[i - 1] == null) 
-        {
-            contentArr[i] = null;
-        }
-    }
-}
-
-let tempArr = [];
-for (let i = 0; i < contentArr.length; i++) 
-{
-    if (contentArr[i] != null) 
-    {
-        tempArr.push(contentArr[i]);
-    }
-}
-
-contentArr = tempArr;
 
 //Copying data from old file to new file with "-con"(Copy Old New)
 //Older File > Newer File
@@ -155,6 +118,14 @@ if (tacisPresent)
     return;
 }
 
+//Renaming the existing file
+let reisPresent = optionsArr.includes("-re");
+if (reisPresent) 
+{
+    fs.renameSync(filesArr[0],filesArr[1]);
+    return;    
+}
+
 //Checking if file exists or not
 for (let i = 0; i < filesArr.length; i++) 
 {
@@ -168,6 +139,43 @@ for (let i = 0; i < filesArr.length; i++)
     }
 }
 
+let content = "";
+for (let i = 0; i < filesArr.length; i++) 
+{
+    let fileContent = fs.readFileSync(filesArr[i]);
+    content += fileContent + "\r\n";
+}
+
+let contentArr = content.split("\r\n");
+
+//'-s' for removing extra lines 
+let isPresent = optionsArr.includes("-s"); //"includes" it checks '-s' is available or not in array
+if (isPresent) //Is '-s' is available then this condition will work
+{
+    for (let i = 1; i < contentArr.length; i++) 
+    {
+        if (contentArr[i] == "" && contentArr[i - 1] == "") 
+        {
+            contentArr[i] = null; //Null helps in removing the line
+        }
+
+        else if (contentArr[i] == "" && contentArr[i - 1] == null) 
+        {
+            contentArr[i] = null;
+        }
+    }
+}
+
+let tempArr = [];
+for (let i = 0; i < contentArr.length; i++) 
+{
+    if (contentArr[i] != null) 
+    {
+        tempArr.push(contentArr[i]);
+    }
+}
+
+contentArr = tempArr;
 
 //"Split" in string
 // var str = "Hello my name is dakshay.";
