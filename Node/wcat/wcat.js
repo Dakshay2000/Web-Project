@@ -24,6 +24,7 @@
 //11. node wcat.js "-re" {oldFileName} {newFileName} => For renaming a file.
 
 //12. node wcat.js "-del" {FileName} => For deleting a file.
+djhgfdjsgfhjd
 
 const fs = require("fs");
 
